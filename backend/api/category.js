@@ -15,7 +15,6 @@ module.exports = app => {
             return res.status(400).send(msg) /* status 400 = erro do lado do client */
         }
 
-
         if (category.id) {
             app.db("categories")
                 .update(category)
