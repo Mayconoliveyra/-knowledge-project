@@ -53,8 +53,5 @@ module.exports = app => {
         }
     }
 
-s
-    
-
 
 }
