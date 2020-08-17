@@ -12,11 +12,12 @@ app.db = db  /* onde faço minhas conexao com o banco app.db */
 app.mongoose = mongoose
 
 consign()    /* funcao do cors. (cama minhas requisição get, post...) */
-    .include("./config/passport.js")
+    .include("./config/passport.js") /* autenticação */
     .then("./config/middlewares.js")
-    .then("./api/validation.js")
+    .then("./api/validation.js") /* autenticação */
     .then("./api")
-    .then("./config/routes.js")
+    .then("./schedule") /* mongo */
+    .then("./config/routes.js") /* rotas */
     .into(app)
 
 app.listen(3000, () => {
