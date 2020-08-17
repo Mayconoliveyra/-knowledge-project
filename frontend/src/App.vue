@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header />
+    <Header title="OliveiraXD - Base de Conhecimento" :hideToggle="false"/>
     <Menu />
     <Content />
     <Footer />
