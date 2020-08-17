@@ -19,6 +19,12 @@ module.exports = app => {
             user.id = req.params.id /* se tiver setado user.id recebe o id */
         }
 
+
+        /* so cadastra como administrador quem for administrador */
+        if (!req.originalUrl.startsWith("/users")) user.admin = false /*  se na url não tem o não tem o "/users" ja seta false para admin  */
+        if (!req.user || !req.user.admin) user.admin = false
+
+
         try {
             existsOrError(user.name, "Nome não informado")
             existsOrError(user.email, "E-mail não informado")
