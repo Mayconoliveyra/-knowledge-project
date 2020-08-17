@@ -14,7 +14,7 @@ app.mongoose = mongoose
 consign()    /* funcao do cors. (cama minhas requisição get, post...) */
     .include("./config/passport.js") /* autenticação */
     .then("./config/middlewares.js")
-    .then("./api/validation.js") /* autenticação */
+    .then("./api/validation.js") /* função de validação */
     .then("./api")
     .then("./schedule") /* mongo */
     .then("./config/routes.js") /* rotas */

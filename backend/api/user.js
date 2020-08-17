@@ -14,7 +14,7 @@ module.exports = app => {
     const save = async (req, res) => {  /*  async necessario para poder usar o banco */
         const user = { ...req.body } /* espalhando meu arquivo recebido em pedaços, ja que vem em formato unico .json */
 
-        
+
         if (req.params.id) { /* verifica se na requisição veio o id setado */
             user.id = req.params.id /* se tiver setado user.id recebe o id */
         }
@@ -44,6 +44,7 @@ module.exports = app => {
             app.db("users")
                 .update(user)
                 .where({ id: user.id })
+                .whereNull("deletedAt")
                 .then(() => res.status(204).send()) /* se não ouver nenhum erro retorna status 204 = success */
                 .catch(err => res.status(500).send(err)) /* caso algum erro retorna erro 500 = erro do lado do servidor */
 
@@ -56,22 +57,46 @@ module.exports = app => {
 
     }
 
+
     /* FAZENDO SELECT NO BANCO  */
     const get = (req, res) => {
         app.db("users")
             .select("id", "name", "email", "admin")
+            .whereNull("deletedAt")
             .then(users => res.json(users))
             .catch(err => res.status(500).send(err))
     }
+
 
     const getById = (req, res) => {
         app.db("users")
             .select("id", "name", "email", "admin")
             .where({ id: req.params.id })
+            .whereNull("deletedAt")
             .first()
             .then(user => res.json(user))
             .catch(err => res.status(500).send(err))
     }
 
-    return { save, get, getById }
+
+    const remove = async (req, res) => {
+        console.log("oi")
+        try {
+            const articles = await app.db("articles")
+                .where({ userId: req.params.id })
+            notExistsOrError(articles, "Usuário possui artigos.")
+
+            const rowsUpdated = await app.db("users")
+                .update({ deletedAt: new Date() })
+                .where({ id: req.params.id })
+            existsOrError(rowsUpdated, "Usuário não foi encontrado.")
+
+            res.status(204).send()
+        } catch (msg) {
+            res.status(400).send(msg)
+        }
+    }
+
+
+    return { save, get, getById, remove }
 }
