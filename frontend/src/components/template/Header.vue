@@ -16,12 +16,14 @@ export default {
   },
   computed: {
     icon() {
-      return "fa-angle-left";
+      return this.$store.state.isMenuVisible
+        ? "fa-angle-left"
+        : "fa-angle-down";
     },
   },
   methods: {
     toggleMenu() {
-
+      this.$store.commit("toggleMenu");
     },
   },
 };
@@ -38,31 +40,31 @@ export default {
 }
 
 .title {
-    font-size: 1.2rem;
-    color: #fff;
-    font-weight: 100;
-    flex-grow: 1;
-    text-align: center;
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 100;
+  flex-grow: 1;
+  text-align: center;
 }
 
 .title a {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 
 header.header > a.toggle {
-    width: 60px;
-    height: 100%;
-    color: #fff;
-    justify-content:  flex-start;
-    text-decoration: none;
+  width: 60px;
+  height: 100%;
+  color: #fff;
+  justify-content: flex-start;
+  text-decoration: none;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 header.header > a.toggle:hover {
-    background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 </style>
