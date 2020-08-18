@@ -8,12 +8,12 @@
       <i class="fa fa-angle-down"></i>
     </div>
     <div class="user-dropdown-content">
-      <a href>
+      <router-link to="/admin">
         <i class="fa fa-cogs"></i> Administração
-      </a>
-      <a href>
+      </router-link>
+      <router-link to>
         <i class="fa fa-sign-out"></i> Sair
-      </a>
+      </router-link>
     </div>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
   position: absolute;
   right: 0px;
   background-color: #f9f9f9;
-  min-width: 170px;
+  min-width: 205px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 10px;
   z-index: 1;

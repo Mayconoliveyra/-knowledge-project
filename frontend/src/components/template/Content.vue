@@ -1,5 +1,7 @@
 <template>
-  <div class="content"></div>
+  <div class="content">
+    <router-view> </router-view> <!-- sempre que eu selecionar um rota, sera aberta aqui -->
+  </div>
 </template>
 
 <script>
