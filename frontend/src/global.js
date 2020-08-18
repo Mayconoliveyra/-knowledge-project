@@ -1,0 +1,1 @@
+export const baseApiUrl = "http://localhost:3000"   /* porta que ta rodando meu backend */

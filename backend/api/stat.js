@@ -3,7 +3,7 @@ module.exports = app => {
         users: Number,
         categories: Number,
         articles: Number,
-        createdAt: Date
+        createdAt: Date 
     })
 
 
