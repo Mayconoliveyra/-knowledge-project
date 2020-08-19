@@ -54,7 +54,7 @@ module.exports = app => {
     }
 
     /* PAGINAÇÃO */
-    const limit = 10 // usado para paginaão
+    const limit = 4 // usado para paginaão
 
     const get = async (req, res) => {
         const page = req.query.page || 1   /* verifica em qual pagina eu estou, caso seja o primeiro acesso ele vai ta null, então por padrao vou seta 1 = pagina 1 */
