@@ -86,7 +86,6 @@ module.exports = app => {
 
 
     const remove = async (req, res) => {
-        console.log("oi")
         try {
             const articles = await app.db("articles")
                 .where({ userId: req.params.id })
