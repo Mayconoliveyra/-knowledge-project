@@ -1,11 +1,73 @@
 <template>
   <div class="user-admin">
+    <b-form>
+      <input id="user-id" type="hidden" v-model="user.id" />
+
+      <b-row>
+        <b-col md="6" sm="12">
+          <b-form-group label="Nome" label-for="user-name">
+            <b-form-input
+              id="user-name"
+              type="text"
+              v-model="user.name"
+              required
+              placeholder="Informe o nome do usuário"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+
+        <b-col md="6" sm="12">
+          <b-form-group label="E-mail" label-for="user-email">
+            <b-form-input
+              id="user-email"
+              type="text"
+              v-model="user.email"
+              required
+              placeholder="Informe o e-mail do usuário"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <b-form-checkbox id="user-admin" v-model="user.admin" class="mt-3 mb-3">Administrador?</b-form-checkbox>
+
+      <b-row>
+        <b-col md="6" sm="12">
+          <b-form-group label="Senha" label-for="user-password">
+            <b-form-input
+              id="user-password"
+              type="password"
+              v-model="user.password"
+              required
+              placeholder="Informe a senha do usuário"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+
+        <b-col md="6" sm="12">
+          <b-form-group label="Confirmação de Senha" label-for="user-confirm-password">
+            <b-form-input
+              id="user-confirm-password"
+              type="password"
+              v-model="user.confirmPassword"
+              required
+              placeholder="Confirme a senha do usuário"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <b-button variant="primary" v-if="mode === 'save'" @click="save">Salvar</b-button>
+      <b-button varient="danger" v-if="mode === 'remove'" @click="remove">Excluir</b-button>
+      <b-button class="ml-2" @click="reset">Cancelar</b-button>
+    </b-form>
+    <hr />
     <b-table hover striped :items="users" :fields="fields"></b-table>
   </div>
 </template>
 
 <script>
-import { baseApiUrl } from "@/global";
+import { baseApiUrl, showError } from "@/global";
 import axios from "axios";
 
 export default {
@@ -36,6 +98,36 @@ export default {
         this.users = res.data;
         /*  console.log(this.users) */
       });
+    },
+    reset() {
+      this.mode = "save";
+      this.user = {};
+      this.loadUsers();
+    },
+    save() {
+      const method = this.user.id ? "put" : "post";
+      const id = this.user.id ? `/${this.user.id}` : "";
+      axios[method](
+        `${baseApiUrl}/users${id}`,
+        this.user
+      ) /* passo a url com id do usuario e passo os dados do usuario "this.user" */
+        .then(() => {
+          this.$toasted.global.defaultSuccess(); /* mensagens success*/
+          this.reset(); /* se o usuario foi inserido, resete a pagina altualizando a lista de usuarios */
+        })
+        .catch(
+          showError
+        ); /* se de error chama a função de erros que crie em global */
+    },
+    remove() {
+      const id = this.user.id;
+      axios
+        .delete(`${baseApiUrl}/users/${id}`)
+        .then(() => {
+          this.$toasted.global.defaultSuccess();
+          this.reset();
+        })
+        .catch(showError);
     },
   },
   mounted() {

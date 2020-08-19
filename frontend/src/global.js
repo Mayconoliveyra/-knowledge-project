@@ -5,11 +5,11 @@ export const baseApiUrl = "http://localhost:3000"   /* porta que ta rodando meu 
 
 export function showError(e) {
     if (e && e.response && e.response.data) {
-        Vue.teasted.global.defaultError({ msg: e.response.data })
+        Vue.toasted.global.defaultError({ msg: e.response.data })
     } else if (typeof e === "string") {
-        Vue.teasted.global.defaultError({ msg: e })
+        Vue.toasted.global.defaultError({ msg: e })
     } else {
-        Vue.teasted.global.defaultError()
+        Vue.toasted.global.defaultError() /* mensagem do msg sera invocada */
     }
 }
 
