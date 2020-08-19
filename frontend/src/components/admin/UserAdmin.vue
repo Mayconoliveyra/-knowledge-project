@@ -55,7 +55,7 @@
               required
               placeholder="Confirme a senha do usuário"
             ></b-form-input>
-          </b-form-group>
+          </b-form-group> 
         </b-col>
       </b-row>
 
