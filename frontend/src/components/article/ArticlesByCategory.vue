@@ -48,6 +48,17 @@ export default {
       });
     },
   },
+  watch: { /* semrpe que chama uma nova requisição tem que resetar as variaveis */
+    $route(to) {
+      this.category.id = to.params.id
+      this.articles = []
+      this.page =1
+      this.loadMore = true
+
+      this.getCategory()
+      this.getArticles()
+    }
+  },
   mounted() {
     this.category.id = this.$route.params.id;
     this.getCategory(); /* pega o id passado na url */
