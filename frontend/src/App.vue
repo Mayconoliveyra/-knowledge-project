@@ -45,6 +45,10 @@ export default {
 
       if (res.data ){
         this.$store.commit("setUser", userData)
+
+        if(this.$mq === "xs" || this.$mq === "sm") { /* responsividade */
+        this.$store.commit("toggleMenu", false) /* responsividade */
+      }
       } else {
         localStorage.removeItem(userKey)
         this.$router.push( {name: "auth"})

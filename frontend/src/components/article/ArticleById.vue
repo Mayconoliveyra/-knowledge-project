@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import "highlightjs/styles/dracula.css"  /* estilo de designer codigo fonte*/
+import hljs from "highlightjs/highlight.pack.js"  /* estilo de designer codigo fonte*/
 import { baseApiUrl } from "@/global";
 import axios from "axios";
 import PageTitle from "../template/PageTitle";
@@ -22,6 +24,11 @@ export default {
     const url = `${baseApiUrl}/articles/${this.$route.params.id}`;
     axios.get(url).then((res) => (this.article = res.data));
   },
+  updated() { /* estilo de designer codigo fonte*/
+    document.querySelectorAll(".article-content pre.ql-syntax").forEach( e => {
+      hljs.highlightBlock(e)
+    })
+  }
 };
 </script>
 
