@@ -18,7 +18,7 @@ module.exports = app => {
         const isMatch = bcrypt.compareSync(req.body.password, user.password) /* verifica se a senha informada é igual a senha que esta salva criptografada no banco */
         if (!isMatch) return res.status(401).send("Email/Senha inválidos!") /* erro 401 = erro de validação */
 
-        const now = Math.floor(Date.now() / 1000) /* pego a hora altual em numeros */
+        const now = Math.floor(Date.now() / 1000) /* pego a hora atual em numeros */
 
         const payload = { /* informaçoes que tbm serão usadas na hora de gerar o token */
             id: user.id,
